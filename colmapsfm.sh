@@ -56,19 +56,23 @@ until [  "$selection" = "1" ]; do
         1 ) echo "Let's process now" ; continue ;;
         0 ) exit ;;
     	2 ) echo "
-		For help use : dense_cloud.sh -h
+		For help use : colmapsfm.sh -help
 	   " >&1
 	   exit 1 ;;
         * ) echo "
 		Only 0 or 1 are valid choices
-		For help use : dense_cloud.sh -h
+		For help use : colmapsfm.sh -help
 		" >&1
 		exit 1 ;;
     esac
 done
 
 
-mm3d XifGps2Txt $FOLDER/images/.*${EXTENSION} OutTxtFile=$FOLDER/gps.txt;
+#mm3d XifGps2Txt $FOLDER/images/.*${EXTENSION} OutTxtFile=$FOLDER/gps.txt;
+#left with commas here....
+#exiftool -gpslatitude -gpslongitude -gpsaltitude *.JPG -n -csv > $FOLDER/gps.txt
+
+exiftool -filename -gpslatitude -gpslongitude -gpsaltitude $FOLDER/*.JPG -n -T > $FOLDER/gps.txt
 
 colmap feature_extractor --database_path $FOLDER/database.db  --image_path $FOLDER/images;
 
