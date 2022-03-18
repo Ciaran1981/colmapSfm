@@ -2,8 +2,8 @@ while getopts ":f:m:" o; do
   case ${o} in
     h)
       echo "Carry out Sfm using colmap commands"
-      echo "Usage: colmapsfm.sh my/workspace -e JPG " 
-      echo "	-m {MATCH}       : matching type (exahaustive_matcher, sequential_matcher, spatial_matcher, transitive_matcher)."
+      echo "Usage: colmapsfm.sh -m exhaustive_matcher -f myfolder " 
+      echo "	-m {MATCH}       : matching type (exhaustive_matcher, sequential_matcher, spatial_matcher, transitive_matcher)."
       echo "	-f Folder        : work directory which must include a dir with images in called images"
       echo "	-h	             : displays this message and exits."
       echo " "  
@@ -33,9 +33,14 @@ shift $((OPTIND-1))
 
 
 
-
 # The project folder must contain a folder "images" with all the images.
 #DATASET_PATH=/path/to/dataset
+
+#exiftool \ 
+#    -filename 
+#    -gpslatitude 
+#    -gpslongitude  
+#    -gpsaltitude $DATASET_PATH/*$EXTENSION -n -T > $FOLDER/gps.txt
 
 colmap feature_extractor \
    --database_path $DATASET_PATH/database.db \
