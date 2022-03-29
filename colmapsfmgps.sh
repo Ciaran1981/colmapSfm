@@ -9,9 +9,6 @@ while getopts ":f:m:e:" o; do
       echo "	-h	             : displays this message and exits."
       echo " "  
       exit 0
-#      ;;    
-#	e)
-#      EXTENSION=${OPTARG}
       ;;
  	f)
       DATASET_PATH=${OPTARG}
@@ -59,14 +56,18 @@ colmap mapper \
 mkdir $DATASET_PATH/dense;
 mkdir $DATASET_PATH/sparse_geo;
 
+# this can replace --ref_images_path $DATASET_PATH/gps.txt if required
+#(or --database_path /path/to/databse.db)
+
 colmap model_aligner \
     --input_path $DATASET_PATH/sparse/0 \
     --output_path $DATASET_PATH/sparse_geo \
-    --ref_images_path $DATASET_PATH/gps.txt  \ #(or --database_path /path/to/databse.db)
+    --ref_images_path $DATASET_PATH/gps.txt \
     --ref_is_gps 1 \
     --alignment_type ecef \
-    --robust_alignment 1 \
-    --robust_alignment_max_error 3.0; #(where 3.0 is the error threshold to be used in RANSAC)
+    --robust_alignment 1 --robust_alignment_max_error 3.0; 
+
+#(where 3.0 is the error threshold to be used in RANSAC)
 
 colmap image_undistorter \
     --image_path $DATASET_PATH/images \
