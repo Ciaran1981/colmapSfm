@@ -71,7 +71,7 @@ colmap model_aligner \
 
 colmap image_undistorter \
     --image_path $DATASET_PATH/images \
-    --input_path $DATASET_PATH/sparse_geo/0 \
+    --input_path $DATASET_PATH/sparse_geo \
     --output_path $DATASET_PATH/dense \
     --output_type COLMAP \
     --max_image_size 2000;
